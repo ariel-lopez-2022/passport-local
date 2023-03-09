@@ -1,7 +1,8 @@
 
 
 const sessionLogin = async (req,res)=>{
-   res.send(req.user)
+   
+   res.send(token)
 }
 
 const loginRegister = async (req,res)=>{

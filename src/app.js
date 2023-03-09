@@ -2,9 +2,9 @@
 const express = require('express');
 const {connectionSocket} = require('./utils/soket.io')
 const server = express();
-const Session = require('express-session')
+//const Session = require('express-session')
 const mongoose = require('mongoose');
-const connectMongo = require('connect-mongo')
+//const connectMongo = require('connect-mongo')
 
 const handlebars = require('express-handlebars');
 const productsRoute = require('./routes/products.routes');
@@ -36,25 +36,25 @@ server.set('views', __dirname + '/views');
 server.set('view engine', 'handlebars');
 
 // Mongo con session 
-server.use(
-  Session ({
-   store: connectMongo.create({
-       mongoUrl:'mongodb+srv://admin:w4Y4edtwtiZzRK6R@cluster0.7xcckea.mongodb.net/?retryWrites=true&w=majority',
-       mongoOptions:{
-          useNewUrlParser:true,
-          useUniFiedTopology:true
-           },
+// server.use(
+//   Session ({
+//    store: connectMongo.create({
+//        mongoUrl:'mongodb+srv://admin:w4Y4edtwtiZzRK6R@cluster0.7xcckea.mongodb.net/?retryWrites=true&w=majority',
+//        mongoOptions:{
+//           useNewUrlParser:true,
+//           useUniFiedTopology:true
+//            },
       
-    }),
-  secret: 'secret',
-  resave: true,
-  saveUninitialized:true, 
-  })
-);  
+//     }),
+//   secret: 'secret',
+//   resave: true,
+//   saveUninitialized:true, 
+//   })
+// );  
 // passport
 initPassaport();
 server.use(passport.initialize());
-server.use(passport.session());
+//server.use(passport.session());
 
 //express
 server.use(express.static(__dirname+'/public'));

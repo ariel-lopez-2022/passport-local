@@ -3,6 +3,7 @@ const passportLocal = require("passport-local");
 const BdsessionManager = require("../dao/mongoManager/BdsessionManager");
 const { REGISTER_STRATEGY, LOGIN_STRATEGY } = require("./constants");
 const { hashPassword, comparePassword } = require("./hashPassword");
+const { generateToken } = require("./jwt");
 
 const initPassaport = () => {
   passport.use(
@@ -63,6 +64,8 @@ const initPassaport = () => {
           
           const isVadidPassword = await comparePassword(password, user.password)
            if (user && isVadidPassword) {
+            const token = generateToken(user)
+            console.log(token)
             done(null, user);
           }else{
             done(null, false);  
@@ -75,13 +78,13 @@ const initPassaport = () => {
       }
     )
   );
-  passport.serializeUser((user, done)=>{
-    done(null, user._id);
-  })
-  passport.deserializeUser(async (_id, done)=>{
-    const user = await BdsessionManager.UserSession(_id)
-    done(null, user)
-  })
+  // passport.serializeUser((user, done)=>{
+  //   done(null, user._id);
+  // })
+  // passport.deserializeUser(async (_id, done)=>{
+  //   const user = await BdsessionManager.UserSession(_id)
+  //   done(null, user)
+  // })
 };
 
 
